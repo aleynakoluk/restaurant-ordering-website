@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page </title>
+    <link rel="stylesheet" href="zenith.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        label{
+            font-size: 2.5rem;
+            color: #f5f5DC;
+        }
+
+        .container-Box {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #e3e3c7;
+            border-radius: 5px;
+            color: #f5f5DC;
+            font-size: 2.5rem;
+            padding: 7rem;
+            margin-top: 6rem;
+            margin-bottom: 6rem;
+        }
+
+        input[type="text"], button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #f5f5DC;
+            color: black;
+            background-color: #F5F5DC;
+            line-height: 2rem;
+        }
+
+        button {
+            margin-top: 1rem;
+            display: inline-block;
+            padding: 2rem 3.75rem;
+            font-size: 3.1rem;
+            color: #F5F5DC;
+            background-color: var(--black-color);
+            border-color: #F5F5DC;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="Written-Logo" style="text-decoration: none;">
+            <p>Zenith Culinary</p>
+        </a>
+    </header>
+    <div class="container-Box">
+        <h1>Payment Page</h1>
+        <form id="payment-form">
+            <label for="card-number">Card number</label>
+            <input type="text" id="card-number" placeholder="Card Number" required>
+            <label for="expiry-date">Expiration date</label>
+            <input type="text" id="expiry-date" placeholder="MM/YY" required>
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" placeholder="CVV" required>
+            <label for="name">Card Holder's Name</label>
+            <input type="text" id="name" placeholder="Name Surname" required>
+            <button type="submit" class="pay-button">Pay</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById("payment-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            alert("Your payment has been received successfully. Enjoy your meal!");
+        });
+    </script>
+            <!-- footer section start-->
+            <footer class="footer">
+
+
+                <div class="share">
+                    <a href="https://www.facebook.com/olden1772/" class="fab fa-facebook"></a>
+                    <a href="https://twitter.com/olden1772" class="fab fa-twitter"></a>
+                    <a href="https://www.instagram.com/olden1772/" class="fab fa-instagram"></a>
+                </div>
+              
+                <div class="credit">
+                    Created by <span>Aleyna Kölük</span> | all rights reserved
+                </div>
+                </footer>
+                <!-- footer section end-->
+        
+                <script src="https://unpkg.com/scrollreveal"></script>   <!-- kayarak gelmesini sağlar-->
+        
+                <script src="script.js"></script>
+</body>
+</html>
