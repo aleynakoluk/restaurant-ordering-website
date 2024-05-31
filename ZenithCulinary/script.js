@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(data => {
                     console.log('Review added successfully:', data);
-                    alert('Review added successfully!');
+                    alert('Review added!');
                     // Clear the form
                     document.getElementById('review-form').reset();
 
