@@ -1,0 +1,644 @@
+:root {
+    --main-color: #5b4b41;
+    --black-color: #0e0e0e;
+    --border: 0.1rem solid rgba(255,255,255,0.4);
+    --box-color: #837159;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: 0.2 ease;
+    vertical-align: inherit;;
+}
+/*! base html codes */
+html{
+font-size: 62.5%; /*! 1rem= 10px (normally 16px)*/
+overflow-x: hidden;
+scroll-padding-top: 9rem;
+scroll-behavior: smooth;
+}
+
+/*! sağ taraftaki aşağı doğru kayan şeyin arka plan rengi */
+html::-webkit-scrollbar{
+    width: 0.8rem;
+    background-color: var(--main-color);
+}
+
+/*! sağ taraftaki aşağı doğru kayan şeyin rengi */
+html::-webkit-scrollbar-thumb{
+    border-radius: 3rem;
+    background-color: var(--black-color);
+}
+
+body{
+    background-color: var(--main-color);
+}
+
+
+
+section{
+    padding: 3.5rem 7%;
+}
+
+a{
+    text-decoration: none;
+}
+
+.generally-button{
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 2rem 3.75rem;
+    border-radius: 30rem;
+    font-size: 1.8rem;
+    color: #F5F5DC;
+    background-color: var(--black-color);
+    cursor: pointer;
+    font-style:inherit;
+}
+.generally-button:hover{
+   opacity: 0.6; 
+}
+
+.heading{
+    color: #F5F5DC;
+    text-transform: uppercase; 
+    font-size: 4rem;
+    margin-bottom: 3.5rem;
+    border-bottom: 0.1rem solid #F5F5DC;
+}
+
+.heading span{
+    text-transform: uppercase; 
+    color: var(--black-color)
+}
+
+
+/*! header start */
+
+
+.header .Written-Logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.header .Written-Logo p {
+    font-size: 20px;
+    color: var(--main-color);
+}
+
+.header{
+    background-color: #F5F5DC;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.2rem;
+    padding: 0 7%;
+    margin: 2rem 7%;
+    border-radius: 30rem;
+    box-shadow: 0px 0px 17px -2px rgba(0,0,0,0.75);
+    position: sticky; /*! headerın aşağı doğru gelmesini sağlar*/
+    top: 0; /*! bu olmadan header aşağı doğru gitmiyor */
+    z-index: 1000; /* Header'ın diğer nesnelerin üzerinde olmasını sağlar */
+
+}
+
+.header .navbar.active{
+    right: 0;
+}
+
+.header .navbar a {
+    margin: 0 1rem;
+    font-size: 1.6rem;
+    color: var(--black-color);
+    border-bottom: 0.1rem solid transparent;
+}
+
+.header .navbar .location,
+.header .navbar a:hover {
+    border-color: var(--main-color);
+    padding-bottom: 0.5rem; /* 5px aşağı kaydırır */
+    margin-left: 0; /* Adjusted margin */
+}
+
+.header .buttons button {
+    cursor: pointer; /* Fare üzerine gelince şekli değişiyor */
+    font-size: 2.5rem;
+    margin-left: 2.2rem;
+    background-color: transparent;
+}
+
+.header .cart-items-container {
+    position: absolute;
+    top: 95%;
+    height: calc(100vh - 9rem);
+    width: 35rem;
+    background-color: #f5f5dc;
+    box-shadow: 0px 20px 14px 0px rgba(0, 0, 0, 0.75);
+    right: -100%;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+}
+
+.header .cart-items-container.active {
+    right: 3rem;
+}
+
+.header .cart-items-container img {
+    height: 7rem;
+    max-width: 9rem;
+    max-height: 9rem;
+    display: block;
+    margin: 0;
+}
+
+.header .cart-items-container .purchase-button {
+    width: 100%;
+    text-align: center;
+    border-radius: unset;
+    position: absolute;
+    bottom: 10px;
+    display: block;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header .cart-items-container .purchase-button:hover {
+    background-color: #218838;
+}
+
+.header .cart-items-container .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.header .cart-items-container .cart-item .trash-icon {
+    cursor: pointer;
+    color: red;
+    font-size: 1.8rem;
+}
+
+
+.header #bars{
+    display: none;
+}
+/*! header end */
+
+/*! home start */
+.home{
+    height: 100vh; /*! tarayıcıda görülen kısım kadar yeri kaplasın*/
+    background: url(/Users/aleynakoluk/Desktop/ZenithCulinary/images/backgroundhome.png)
+    no-repeat;
+    background-size: cover; /*! resmi güzelce sığdırsın diye */
+    background-position: center; 
+    margin-top: -8.2rem; /*! 82px yukarı kaydırsın diye, en yukarıdaki fazlalığı yok ediyor*/
+    display: flex;
+    align-items: center;
+}
+
+.home .content{
+    max-width: 60rem;
+}
+
+.home .content h3{
+    font-size: 6.7rem;
+    color: #F5F5DC;
+
+}
+.home .content p{
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1.8; /*! satır arası boşluk */
+    padding: 1rem 0;
+    color: #F5F5DC;
+
+}
+/*! home end */
+
+/*! menu start */
+.menu .menu-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem,1fr));
+    gap: 1.5rem; /*! 15pxlik boşluk, her box arası */
+
+}
+
+.menu .menu-container .menu-box{
+  padding: 3rem;
+  background-color: var(--box-color);
+  border-radius: 3rem;
+  max-height: 60rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: background-color 0.3s ease; /* Geçiş efekti tanımı */
+}
+
+.menu .menu-container .menu-box:hover {
+    background-color: #F5F5DC; /* Üzerine gelindiğinde arka plan rengi değişimi */
+}
+
+.menu .menu-container .menu-box img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.menu .menu-container .menu-box h3{
+    font-size: 3rem;
+    padding: 1rem o;
+}
+
+.menu .menu-container .menu-box .price{
+    font-size: 2.5rem;
+    padding: 0.5rem 0;
+}
+
+.menu .menu-container .menu-box .price span{
+    font-size: 1.6rem;
+    font-weight: 300;
+    text-decoration: line-through;
+}
+  
+/*! menu end */
+
+/*! about start */
+.about .row{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+}
+
+.about .row .image{
+    flex: 1 1 45rem;
+}
+
+.about .row img{
+    width: 100%;
+}
+
+.about .row .content{
+    flex: 1 1 45rem;
+}
+
+.about .row .content h3{
+    font-size: 3rem;
+    color: #F5F5DC;
+}
+
+.about .row .content p{
+    font-size: 1.6rem;
+    color:antiquewhite;
+    padding: 1rem 0;
+    line-height: 1.8;
+}
+
+
+
+#about-Video {
+    width: 100%; /* Yatayda tam ekran olsun */
+    height: 100vh; /* Dikeyde tam ekran olsun */
+    background-size: contain; /* Resmi orijinal boyutunu koruyarak tamamen görüntülesin */
+    background-position: center; 
+    margin-top: -8.2rem; /* 82px yukarı kaydırsın diye, en yukarıdaki fazlalığı yok ediyor */
+    margin-left: 0; /* Sol boşluğu sıfırla */
+    display: flex;
+    align-items: center; /* Dikey olarak ortala */
+    justify-content: center; /* Yatay olarak ortala */
+
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 7rem;
+    min-height: 100vh; /* Sayfanın en az bir ekran yüksekliğinde olmasını sağlar */
+}
+
+.section {
+    background-color: #F5F5DC;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 800px;
+    top: 5rem; /* Header yüksekliği kadar */
+}
+
+
+.section h4 {
+    color: var(--main-color);
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+}
+
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+.content img {
+    width: 100%;
+    max-height: 400px; /* Resmin maksimum yüksekliğini ayarlayabilirsiniz */
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+
+.content p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+/*! about end */
+
+/*! review start */
+.review .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+}
+
+.review .box-container .review-box{
+    border: var(--border);
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: #837159;
+    border-radius: 3rem;
+    transition: transform 0.3s ease; /* Büyüme efekti için geçiş tanımı */
+}
+
+.review .box-container .review-box:not(:hover) {
+    transform: scale(0.9); /* Diğer elemanların küçülme efekti */
+}
+
+.review .box-container .review-box .review-comment{
+    height: 8rem;
+    width: 8rem;
+    object-fit: cover;
+}
+
+.review .box-container .review-box p{
+    font-size: 1.5rem;
+    line-height: 1.8;
+    padding: 2rem 0;
+}
+
+.review .box-container .review-box .user{
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    object-fit: cover; /*! resim bulanıklaşmasın falan diye */
+}
+
+.review .box-container .review-box h3{
+    padding: 1rem 0;
+    font-size: 2rem;
+    color: var(--main-color);
+}
+
+.review .box-container .review-box .stars i {
+    font-size: 1.5rem;
+    color: gold;
+}
+
+#review-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #F5F5DC;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#review-form input,
+#review-form textarea,
+#review-form button {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: #F5F5DC;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#review-form textarea {
+    resize: vertical;
+}
+
+#review-form button {
+    background-color: #4CAF50;
+    color: #F5F5DC;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#review-form button:hover {
+    background-color: #45a049;
+}
+
+/*! review end */
+
+/*! contact start */
+.contact .row{
+    display: flex;
+    background-color: var(--black-color);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.contact .row .map{
+    flex: 1 1 45rem;
+    width: 100%;
+    object-fit: cover;
+}
+
+.contact .row form{
+    flex: 1 1 45rem;
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.contact .row form h3{
+    font-size: 3.5rem;
+    color: #F5F5DC;
+}
+
+.contact .row form .inputBox{
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    border: var(--border);
+}
+
+.contact .row form .inputBox i{
+    color: #F5F5DC;
+    font-size: 2rem;
+    padding-left: 2rem;
+}
+
+.contact .row form .inputBox input{
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.7rem;
+    color: #F5F5DC;
+    text-transform: none;
+    background: none;
+}
+
+.contact .row form .generally-button{
+    color: var(--black-color);
+    background-color: var(--main-color);
+    font-weight: bold;
+}
+/*! contact end */
+
+/*! footer start */
+.footer{
+    background-color: var(--black-color);
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+
+.footer .share{
+    padding: 2rem 0;
+}
+
+.footer .share a{
+    width: 5rem;
+    height: 5rem;
+    line-height: 5rem;
+    color: #F5F5DC;
+    font-size: 2rem;
+    border: var(--border);
+    border-radius: 50%;
+    margin: 0.3rem;
+}
+
+.footer .share a:hover{
+    background-color: var(--main-color);
+}
+
+.footer .links{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer .links a{
+    background-color: var(--main-color);
+    padding: 0.7rem 2rem;
+    color: #F5F5DC;
+    font-size: 2rem;
+    border: var(--border);
+}
+
+.footer .links a:hover{
+    background-color: var(--black-color);
+    opacity: 0.8;
+}
+
+.footer .links a.active{
+    background-color: var(--black-color);
+}
+
+.footer .credit{
+    font-size: 2rem;
+    color: #F5F5DC;
+    font-weight: 300;
+    padding-top: 1.5rem;
+}
+
+.footer .credit span{
+    color: var(--main-color);
+}
+/*! footer end */
+
+/*! responsive start */
+ @media(max-width:991px){
+    html{
+        font-size: 55%;
+    }
+
+    .header{
+        padding: 1.5rem 2rem;
+    }
+
+    .header .Written-Logo{
+        height: 7rem;
+    }
+    
+    section{
+        padding: 2rem;
+    }
+}
+
+ @media(max-width:768px){
+   .header #bars{
+        display: inline-block;;
+    }
+
+    .header .navbar{
+        position: absolute;
+        top: 95%;
+        background-color: #F5F5DC;
+        height: calc(100vh - 9rem);
+        width: 30rem;
+        box-shadow: 0px 20px 14px 0px rgb(0 0 0 /75%);
+        right: -100%;
+    }
+
+    .header .navbar.location{
+        right: 3rem;
+    }
+
+    .header .navbar a{
+        color: var(--black-color);
+        display: block;
+        margin: 1.5rem;
+        padding: 0.5rem;
+        font-size: 2rem;
+    }    
+ }
+
+    @media(max-width: 576px){
+        html{
+            font-size: 50%;
+        }
+}
+/*! responsive end */
+
+
+
+
+
+
+
+
+
+
+
+
