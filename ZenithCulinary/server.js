@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost:27017/zenithDB', {
     console.error('MongoDB connection error:', err);
 });
 
+// Contact Schema
 const contactSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -42,6 +43,7 @@ const contactSchema = new mongoose.Schema({
 
 const Contact = mongoose.model('Contact', contactSchema);
 
+// Review Schema
 const reviewSchema = new mongoose.Schema({
     name: String,
     review: String,
@@ -50,6 +52,7 @@ const reviewSchema = new mongoose.Schema({
 
 const Review = mongoose.model('Review', reviewSchema, 'reviews');
 
+// Payment Schema
 const paymentSchema = new mongoose.Schema({
     firstname: {
         type: String,
@@ -80,11 +83,21 @@ const paymentSchema = new mongoose.Schema({
         type: String,
         required: true,
         match: [/^\d{3}$/, 'is invalid']
-    }
+    },
+    items: [
+        {
+            productId: mongoose.Schema.Types.ObjectId,
+            name: String,
+            price: Number,
+            quantity: Number,
+        },
+    ],
+    totalAmount: Number
 });
 
 const Payment = mongoose.model('Payment', paymentSchema, 'payments');
 
+// Product Schema
 const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
@@ -94,6 +107,7 @@ const Product = mongoose.model('Product', productSchema, 'add-to-cart');
 
 app.use(express.static(path.join(__dirname)));
 
+// Serve HTML files
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -115,14 +129,11 @@ app.get('/pay.css', (req, res) => {
 app.get('/admin.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.html'));
 });
-app.get('/admin.js', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin.js'));
-});
 app.get('/admin.css', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.css'));
 });
 
-
+// Contact endpoints
 app.post('/contacts', (req, res) => {
     const newContact = new Contact(req.body);
     newContact.save()
@@ -135,6 +146,7 @@ app.post('/contacts', (req, res) => {
         });
 });
 
+// Review endpoints
 app.post('/reviews', (req, res) => {
     const newReview = new Review({
         name: req.body.name,
@@ -163,6 +175,7 @@ app.get('/reviews', (req, res) => {
         });
 });
 
+// Payment endpoint
 app.post('/payments', (req, res) => {
     const newPayment = new Payment(req.body);
     newPayment.save()
@@ -175,10 +188,11 @@ app.post('/payments', (req, res) => {
         });
 });
 
+// Cart endpoints
 app.post('/add-to-cart', (req, res) => {
     const { name, price, imageSrc } = req.body;
     const newProduct = new Product({ name, price, imageSrc });
-    
+
     newProduct.save()
         .then(savedProduct => {
             res.status(200).json(savedProduct);
@@ -189,7 +203,6 @@ app.post('/add-to-cart', (req, res) => {
         });
 });
 
-// Sepet verilerini alma endpoint'i
 app.get('/add-to-cart', (req, res) => {
     Product.find({})
         .then(cartItems => {
@@ -203,15 +216,15 @@ app.get('/add-to-cart', (req, res) => {
 
 app.delete('/add-to-cart/:id', async (req, res) => {
     const itemId = req.params.id;
-    console.log(`Attempting to delete item with ID: ${itemId}`); // Silme işlemi için ID'yi logla
-    
+    console.log(`Attempting to delete item with ID: ${itemId}`);
+
     try {
         const deletedProduct = await Product.findOneAndDelete({ _id: itemId });
         if (!deletedProduct) {
             console.error('No product found with ID:', itemId);
             return res.status(404).send('No product found');
         }
-        
+
         console.log('Deleted product:', deletedProduct);
         res.send('Item deleted successfully');
     } catch (err) {
@@ -220,7 +233,7 @@ app.delete('/add-to-cart/:id', async (req, res) => {
     }
 });
 
-// Contacts koleksiyonundan tüm verileri almak için GET endpoint'i
+// Contact retrieval endpoint
 app.get('/contacts', async (req, res) => {
     try {
         const contacts = await Contact.find();
@@ -231,7 +244,7 @@ app.get('/contacts', async (req, res) => {
     }
 });
 
-// Payments koleksiyonundan tüm verileri almak için GET endpoint'i
+// Payment retrieval endpoint
 app.get('/payments', async (req, res) => {
     try {
         const payments = await Payment.find();
@@ -241,8 +254,6 @@ app.get('/payments', async (req, res) => {
         res.status(500).send('Error retrieving payments');
     }
 });
-
-
 
 
 app.listen(port, () => {

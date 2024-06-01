@@ -3,73 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Admin Panel</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Admin Dashboard</h1>
-        <section id="contacts-section">
-            <h2>Contacts</h2>
-            <table id="contacts-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
-        <section id="payments-section">
-            <h2>Payments</h2>
-            <table id="payments-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Firstname</th>
-                        <th>Address</th>
-                        <th>Cardname</th>
-                        <th>Cardnumber</th>
-                        <th>Exp. Month</th>
-                        <th>Exp. Year</th>
-                        <th>CVV</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
-        <section id="reviews-section">
-            <h2>Reviews</h2>
-            <table id="reviews-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Review</th>
-                        <th>Rating</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
-        <section id="cart-section">
-            <h2>Cart Items</h2>
-            <table id="cart-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Image</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
+
+<div class="container">
+    <header>
+        <h1>Admin Panel</h1>
+    </header>
+    <section class="orders">
+        <h2>Orders</h2>
+        <table id="payments-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Card Name</th>
+                    <th>Card Number</th>
+                    <th>Expiry Month</th>
+                    <th>Expiry Year</th>
+                    <th>CVV</th>
+                    <th>Items</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody id="payments-body">
+                <!-- Payment details will be displayed here -->
+            </tbody>
+        </table>
+    </section>
+</div>
+
+<footer class="footer">
+    <div class="share">
+        <a href="https://www.facebook.com/olden1772/" class="fa fa-facebook"></a>
+        <a href="https://twitter.com/olden1772" class="fa fa-twitter"></a>
+        <a href="https://www.instagram.com/olden1772/" class="fa fa-instagram"></a>
     </div>
-    <script src="admin.js"></script>
+    <div class="credit">
+        Created by <span>Aleyna Kölük</span> | All rights reserved
+    </div>
+</footer>
+<script src="script.js"></script>
+
 </body>
 </html>
