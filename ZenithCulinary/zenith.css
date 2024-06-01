@@ -160,10 +160,11 @@ a{
 }
 
 .header .cart-items-container .purchase-button {
-    width: 100%;
+    width: 35rem; 
+    margin-bottom: 5rem; 
     text-align: center;
     border-radius: unset;
-    position: absolute;
+    position: fixed;
     bottom: 10px;
     display: block;
     background-color: #28a745;
