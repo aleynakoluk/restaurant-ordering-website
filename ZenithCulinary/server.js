@@ -109,6 +109,19 @@ app.get('/script.js', (req, res) => {
 app.get('/pay.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'pay.html'));
 });
+app.get('/pay.css', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pay.css'));
+});
+app.get('/admin.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
+});
+app.get('/admin.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.js'));
+});
+app.get('/admin.css', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.css'));
+});
+
 
 app.post('/contacts', (req, res) => {
     const newContact = new Contact(req.body);
@@ -206,6 +219,31 @@ app.delete('/add-to-cart/:id', async (req, res) => {
         res.status(500).send('Error deleting product');
     }
 });
+
+// Contacts koleksiyonundan tüm verileri almak için GET endpoint'i
+app.get('/contacts', async (req, res) => {
+    try {
+        const contacts = await Contact.find();
+        res.json(contacts);
+    } catch (err) {
+        console.error('Error retrieving contacts:', err);
+        res.status(500).send('Error retrieving contacts');
+    }
+});
+
+// Payments koleksiyonundan tüm verileri almak için GET endpoint'i
+app.get('/payments', async (req, res) => {
+    try {
+        const payments = await Payment.find();
+        res.json(payments);
+    } catch (err) {
+        console.error('Error retrieving payments:', err);
+        res.status(500).send('Error retrieving payments');
+    }
+});
+
+
+
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);

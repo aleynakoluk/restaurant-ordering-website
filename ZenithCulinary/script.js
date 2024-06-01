@@ -176,13 +176,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('One or more form elements not found!');
     }
 });
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     const paymentButton = document.getElementById('paymentBtn');
     const nameInput = document.getElementById('fname');
@@ -204,6 +197,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const expmonth = expmonthInput.value.trim();
             const expyear = expyearInput.value.trim();
             const cvv = cvvInput.value.trim();
+
+            // Ek Doğrulamalar
+            if (expmonth < 1 || expmonth > 12) {
+                alert('Expiration month must be between 1 and 12');
+                return;
+            }
+
+            const currentYear = new Date().getFullYear() % 100; // Son iki haneli yıl
+            if (expyear < currentYear) {
+                alert('Expiration year must be this year or in the future');
+                return;
+            }
 
             if (name && address && cardname && cardnumber && expmonth && expyear && cvv) {
                 const paymentData = {
