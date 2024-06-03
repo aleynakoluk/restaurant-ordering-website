@@ -572,3 +572,88 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('There was a problem with completing the order:', error));
     }
 });
+document.addEventListener('DOMContentLoaded', function() {
+    fetchPayments();
+    fetchContacts();
+});
+
+function fetchPayments() {
+    fetch('/payments')
+        .then(response => response.json())
+        .then(data => {
+            displayPayments(data);
+        })
+        .catch(error => {
+            console.error('Error fetching payments:', error);
+        });
+}
+
+function fetchContacts() {
+    fetch('/contacts')
+        .then(response => response.json())
+        .then(data => {
+            displayContacts(data);
+        })
+        .catch(error => {
+            console.error('Error fetching contacts:', error);
+        });
+}
+
+function displayPayments(payments) {
+    const paymentsTableBody = document.getElementById('paymentsTableBody');
+    paymentsTableBody.innerHTML = '';
+
+    payments.forEach(payment => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${payment.firstname}</td>
+            <td>${payment.address}</td>
+            <td>${payment.cardname}</td>
+            <td>${payment.totalAmount}</td>
+            <td>${payment.status}</td>
+            <td>
+                <button class="cancel-btn" data-id="${payment._id}" ${payment.status === 'cancelled' ? 'disabled' : ''}>Order Cancelled</button>
+                <button class="complete-btn" data-id="${payment._id}" ${payment.status === 'completed' ? 'disabled' : ''}>Order Completed</button>
+            </td>
+        `;
+        paymentsTableBody.appendChild(row);
+    });
+
+    document.querySelectorAll('.cancel-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            updatePaymentStatus(button.dataset.id, 'cancelled');
+        });
+    });
+
+    document.querySelectorAll('.complete-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            updatePaymentStatus(button.dataset.id, 'completed');
+        });
+    });
+}
+
+function displayContacts(contacts) {
+    const contactsTableBody = document.getElementById('contactsTableBody');
+    contactsTableBody.innerHTML = '';
+
+    contacts.forEach(contact => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${contact.name}</td>
+            <td>${contact.email}</td>
+            <td>${contact.phone}</td>
+        `;
+        contactsTableBody.appendChild(row);
+    });
+}
+
+function updatePaymentStatus(paymentId, status) {
+    fetch(`/payments/${paymentId}/${status}`, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            fetchPayments();
+        })
+        .catch(error => {
+            console.error('Error updating payment status:', error);
+        });
+}

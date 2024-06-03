@@ -9,14 +9,13 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://localhost:27017/zenithDB', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('MongoDB connected');
-}).catch((err) => {
-    console.error('MongoDB connection error:', err);
-});
+mongoose.connect('mongodb://localhost:27017/zenithDB')
+    .then(() => {
+        console.log('MongoDB connected');
+    })
+    .catch((err) => {
+        console.error('MongoDB connection error:', err);
+    });
 
 const contactSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -42,11 +41,7 @@ const paymentSchema = new mongoose.Schema({
     expmonth: { type: String, required: true },
     expyear: { type: String, required: true },
     cvv: { type: String, required: true, match: [/^\d{3}$/, 'is invalid'] },
-    items: [{ productId: mongoose.Schema.Types.ObjectId,
-        name: String,
-        price: Number,
-        quantity: Number }],
-
+    items: [{ productId: mongoose.Schema.Types.ObjectId, name: String, price: Number, quantity: Number }],
     totalAmount: Number,
     status: String,
 });
