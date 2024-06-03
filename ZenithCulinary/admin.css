@@ -77,6 +77,34 @@ tr:hover {
     background-color: #F5F5DC; /* Hover rengi */
 }
 
+/* Cancel and Complete Button Styles */
+.cancel-btn,
+.complete-btn {
+  display: inline-block; /* Butonları yan yana yerleştirmek için inline-block kullanın */
+
+  margin-right: 10px; /* Boşluk eklemek için sağa doğru margin kullanabilirsiniz */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.complete-btn {
+  background-color: #2ecc71;
+  color: #fff;
+}
+
+.cancel-btn:disabled,
+.complete-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .footer {
     background-color: #5b4b41; /* Koyu kahverengi tonu */
     color: #F5F5DC;

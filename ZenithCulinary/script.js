@@ -494,18 +494,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fetchPayments() {
         fetch('/payments')
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Network response was not ok.');
-            })
-            .then(payments => {
-                displayPayments(payments);
-            })
-            .catch(error => {
-                console.error('There was a problem with fetching payments:', error);
-            });
+            .then(response => response.json())
+            .then(payments => displayPayments(payments))
+            .catch(error => console.error('There was a problem with fetching payments:', error));
     }
 
     function displayPayments(payments) {
@@ -523,8 +514,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>${payment.cvv}</td>
                 <td>${formatItems(payment.items)}</td>
                 <td>${payment.totalAmount.toFixed(2)}</td>
-
+                <td>
+                    <button class="cancel-btn" data-id="${payment._id}" ${payment.status === 'cancelled' ? 'disabled' : ''}>Order Cancelled</button>
+                    <button class="complete-btn" data-id="${payment._id}" ${payment.status === 'completed' ? 'disabled' : ''}>Order Completed</button>
+                </td>
             `;
+            if (payment.status === 'cancelled') {
+                row.children[row.children.length - 1].textContent = 'Order Cancelled';
+                row.children[row.children.length - 1].style.color = 'red';
+            } else if (payment.status === 'completed') {
+                row.children[row.children.length - 1].textContent = 'Order Completed';
+                row.children[row.children.length - 1].style.color = 'green';
+            }
             paymentsTable.appendChild(row);
         });
     }
@@ -533,8 +534,41 @@ document.addEventListener('DOMContentLoaded', function() {
         return items.map(item => `${item.name} - $${item.price}`).join('<br>');
     }
 
-    // Fetch payments initially and then every 30 seconds
     fetchPayments();
     setInterval(fetchPayments, 30000); // 30 seconds
-});
 
+    paymentsTable.addEventListener('click', function(event) {
+        const target = event.target;
+        if (target.classList.contains('cancel-btn')) {
+            handleCancelOrder(target);
+        } else if (target.classList.contains('complete-btn')) {
+            handleCompleteOrder(target);
+        }
+    });
+
+    function handleCancelOrder(button) {
+        const paymentId = button.dataset.id;
+        fetch(`/payments/${paymentId}/cancel`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result.message);
+            fetchPayments(); // Refresh payments after cancelling
+        })
+        .catch(error => console.error('There was a problem with cancelling the order:', error));
+    }
+
+    function handleCompleteOrder(button) {
+        const paymentId = button.dataset.id;
+        fetch(`/payments/${paymentId}/complete`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result.message);
+            fetchPayments(); // Refresh payments after completing
+        })
+        .catch(error => console.error('There was a problem with completing the order:', error));
+    }
+});
