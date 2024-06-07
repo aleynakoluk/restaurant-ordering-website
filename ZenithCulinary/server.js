@@ -179,6 +179,7 @@ app.get('/contacts', async (req, res) => {
     }
 });
 
+
 app.get('/payments', async (req, res) => {
     try {
         const payments = await Payment.find();

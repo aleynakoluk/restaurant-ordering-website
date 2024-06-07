@@ -192,8 +192,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const address = addressInput.value.trim();
             const cardname = cardnameInput.value.trim();
             const cardnumber = cardnumberInput.value.trim();
-            const expmonth = expmonthInput.value.trim();
-            const expyear = expyearInput.value.trim();
+            const expmonth = parseInt(expmonthInput.value.trim(), 10);
+            const expyear = parseInt(expyearInput.value.trim(), 10);
             const cvv = cvvInput.value.trim();
 
             // Additional validations
@@ -202,9 +202,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const currentYear = new Date().getFullYear() % 100; // Last two digits of the year
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth() + 1; // Aylar 0-11 arasında olduğu için 1 eklenir
+            const currentYear = currentDate.getFullYear() % 100; // son iki rakamı
             if (expyear < currentYear) {
                 alert('Expiration year must be this year or in the future');
+                return;
+            } else if (expyear === currentYear && expmonth < currentMonth) {
+                alert('Expiration month must be this month or in the future');
                 return;
             }
 
@@ -507,11 +512,6 @@ document.addEventListener('DOMContentLoaded', function() {
             row.innerHTML = `
                 <td>${payment.firstname}</td>
                 <td>${payment.address}</td>
-                <td>${payment.cardname}</td>
-                <td>${payment.cardnumber}</td>
-                <td>${payment.expmonth}</td>
-                <td>${payment.expyear}</td>
-                <td>${payment.cvv}</td>
                 <td>${formatItems(payment.items)}</td>
                 <td>${payment.totalAmount.toFixed(2)}</td>
                 <td>
@@ -572,6 +572,19 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('There was a problem with completing the order:', error));
     }
 });
+
+document.querySelectorAll('.cancel-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        updatePaymentStatus(button.dataset.id, 'cancelled');
+    });
+});
+
+document.querySelectorAll('.complete-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        updatePaymentStatus(button.dataset.id, 'completed');
+    });
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     fetchPayments();
     fetchContacts();
@@ -597,39 +610,6 @@ function fetchContacts() {
         .catch(error => {
             console.error('Error fetching contacts:', error);
         });
-}
-
-function displayPayments(payments) {
-    const paymentsTableBody = document.getElementById('paymentsTableBody');
-    paymentsTableBody.innerHTML = '';
-
-    payments.forEach(payment => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${payment.firstname}</td>
-            <td>${payment.address}</td>
-            <td>${payment.cardname}</td>
-            <td>${payment.totalAmount}</td>
-            <td>${payment.status}</td>
-            <td>
-                <button class="cancel-btn" data-id="${payment._id}" ${payment.status === 'cancelled' ? 'disabled' : ''}>Order Cancelled</button>
-                <button class="complete-btn" data-id="${payment._id}" ${payment.status === 'completed' ? 'disabled' : ''}>Order Completed</button>
-            </td>
-        `;
-        paymentsTableBody.appendChild(row);
-    });
-
-    document.querySelectorAll('.cancel-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            updatePaymentStatus(button.dataset.id, 'cancelled');
-        });
-    });
-
-    document.querySelectorAll('.complete-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            updatePaymentStatus(button.dataset.id, 'completed');
-        });
-    });
 }
 
 function displayContacts(contacts) {
